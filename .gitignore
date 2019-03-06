@@ -1,0 +1,5 @@
+# config variables
+config.js
+
+# npm packages
+node_modules

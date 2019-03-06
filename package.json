@@ -1,0 +1,19 @@
+{
+  "name": "fansintears-backend",
+  "version": "1.0.0",
+  "description": "Backend for FansInTears app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryzhak/fansintears-backend.git"
+  },
+  "author": "Vladimir Ryzhak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryzhak/fansintears-backend/issues"
+  },
+  "homepage": "https://github.com/ryzhak/fansintears-backend#readme"
+}
