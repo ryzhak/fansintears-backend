@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ryzhak/fansintears-backend/issues"
   },
-  "homepage": "https://github.com/ryzhak/fansintears-backend#readme"
+  "homepage": "https://github.com/ryzhak/fansintears-backend#readme",
+  "dependencies": {
+    "mongoose": "^5.4.17"
+  }
 }
