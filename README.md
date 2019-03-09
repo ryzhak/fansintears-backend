@@ -6,7 +6,8 @@
 Create `config.js` file in the project root:
 ```
 module.exports = {
-	MONGO_CONNECTION_STRING: 'mongodb://localhost:27017/db_name' // mongo db connection string
+	MONGO_CONNECTION_STRING: 'mongodb://localhost:27017/db_name', // mongo db connection string
+	SERVER_PORT: 8080 // api server port
 };
 ```
 

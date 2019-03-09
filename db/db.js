@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const config = require('../config');
 
+// require all models so that all of them are available on app start
+const Fixture = require('./models/fixture');
+const League = require('./models/league');
+
 /**
  * Initializes DB connection
  */

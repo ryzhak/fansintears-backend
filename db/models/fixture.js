@@ -9,6 +9,15 @@ const fixtureSchema = new Schema({
 	awayTeam_id: Number,
 	homeTeam: String,
 	awayTeam: String
+}, {
+	toJSON: {virtuals: true}
+});
+
+fixtureSchema.virtual('league', {
+	ref: 'League',
+	localField: 'league_id',
+	foreignField: 'id',
+	justOne: true
 });
 
 const Fixture = mongoose.model('Fixture', fixtureSchema);
