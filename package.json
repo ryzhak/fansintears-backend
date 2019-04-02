@@ -28,6 +28,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.4.17",
     "request": "^2.88.0",
+    "scrape-twitter": "^0.11.1",
     "telegraf": "^3.27.1"
   }
 }
