@@ -8,7 +8,9 @@ const fixtureSchema = new Schema({
 	homeTeam_id: Number,
 	awayTeam_id: Number,
 	homeTeam: String,
-	awayTeam: String
+	awayTeam: String,
+	telegram_invite_link: String,
+	telegram_group_name: String
 }, {
 	toJSON: {virtuals: true}
 });

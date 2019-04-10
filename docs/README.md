@@ -40,6 +40,8 @@ HTTP/1.1 200 OK
       "homeTeam": "Arsenal",
       "homeTeam_id": 42,
       "league_id": 2,
+      "telegram_group_name": "ENG_ARS_MAN_FANSINTEARS",
+      "telegram_invite_link": "https://t.me/joinchat/GdDWTRXLrxrAg9_sEpvS4g",
       "league": {
           "_id": "5c81b165986149a3f5805eab",
           "id": 2,
@@ -62,6 +64,8 @@ HTTP/1.1 200 OK
       "homeTeam": "Nantes",
       "homeTeam_id": 83,
       "league_id": 4,
+      "telegram_group_name": "FRA_NAN_PAR_FANSINTEARS",
+      "telegram_invite_link": "https://t.me/joinchat/GdDWTRXLrxrAg9_sEpvS4g",
       "league": {
           "_id": "5c81b165986149a3f5805eaf",
           "id": 4,

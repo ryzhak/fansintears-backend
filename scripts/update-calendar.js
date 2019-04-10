@@ -25,6 +25,20 @@ async function main() {
 }
 
 /**
+ * Returns telegram group name by fixture home team, away team and country
+ * @param {Object} fixture Fixture data
+ * @returns {Promise} Promise with telegram group name 
+ */
+async function getTelegramGroupName(fixture) {
+	const league = await League.findOne({id: fixture.league_id}).catch(handleMongoError);
+	const countryName = league.country.slice(0,3).toUpperCase();
+	const homeTeamName = fixture.homeTeam.slice(0,3).toUpperCase();
+	const awayTeamName = fixture.awayTeam.slice(0,3).toUpperCase();
+	const telegramGroupName = `${countryName}_${homeTeamName}_${awayTeamName}_FANSINTEARS`.replace(' ', '');
+	return telegramGroupName;
+}
+
+/**
  * MongoDB error handler
  * @param {Object} err Error object 
  */
@@ -43,7 +57,10 @@ async function updateFixtures() {
 		const fixtures = dump.api.fixtures;
 		// save fixtures to db
 		for(let fixtureId of Object.keys(fixtures)) {
-			await Fixture.findOneAndUpdate({id: fixtureId}, fixtures[fixtureId], {upsert: true}).catch(handleMongoError);
+			let fixture = fixtures[fixtureId];
+			fixture.telegram_invite_link = 'https://t.me/joinchat/GdDWTRXLrxrAg9_sEpvS4g';
+			fixture.telegram_group_name = await getTelegramGroupName(fixtures[fixtureId]);
+			await Fixture.findOneAndUpdate({id: fixtureId}, fixture, {upsert: true}).catch(handleMongoError);
 		}
 	}
 }
