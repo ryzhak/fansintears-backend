@@ -34,7 +34,7 @@ async function getTelegramGroupName(fixture) {
 	const countryName = league.country.slice(0,3).toUpperCase();
 	const homeTeamName = fixture.homeTeam.slice(0,3).toUpperCase();
 	const awayTeamName = fixture.awayTeam.slice(0,3).toUpperCase();
-	const telegramGroupName = `${countryName}_${homeTeamName}_${awayTeamName}_FANSINTEARS`.replace(' ', '');
+	const telegramGroupName = `${countryName}_${homeTeamName}_${awayTeamName}_FANSINTEARS`.replace(/ /g, '');
 	return telegramGroupName;
 }
 
