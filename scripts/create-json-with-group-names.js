@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const db = require('../db/db');
 const Fixture = require('../db/models/fixture');
 
@@ -17,7 +19,8 @@ async function main() {
 		for(let fixture of fixtures) {
 			groupLink[fixture.telegram_group_name] = '';
 		}
-		console.log(Object.keys(groupLink).length);
+		fs.writeFileSync(`${__dirname}/../dumps/telegram_group_link_13042019.json`, JSON.stringify(groupLink), 'utf-8');
+		console.log('finished');
 		process.exit();
 	} catch (err) {
 		console.log(err);
