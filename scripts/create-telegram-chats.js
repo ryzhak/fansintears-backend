@@ -26,7 +26,7 @@ async function main() {
 			const { stdout, stderr } = await exec(`/home/vladimir/Public/projects/python/tg/bin/telegram-cli -W -e "create_group_chat ${groupName} @fans_in_tears_media_bot"`);
 			console.log(`Stdout: ${stdout}`);
 			console.log(`Stderr: ${stderr}`);
-			await sleep(6000); // min time is 3 seconds, although blocked after 48 group creations in 16 mins with 20 seconds interval
+			await sleep(6000); // min time is 3 seconds, although blocked after 48 group creations per day
 		}
 		console.log('finished');
 		process.exit();
