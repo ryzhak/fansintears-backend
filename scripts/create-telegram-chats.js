@@ -5,13 +5,7 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-// TODO: uncomment for prod
-// const telegramGroups = require('../dumps/telegram_group_link_13042019.json');
-
-const telegramGroups = {  
-	"ENG_MAN_LEI_FANSINTEARS":"",
-	"ENG_NEW_TOT_FANSINTEARS":""
-};
+const telegramGroups = require('../dumps/telegram_group_link_13042019.json');
 
 // run main function
 main();
@@ -22,11 +16,14 @@ main();
 async function main() {
 	try {
 		for(let groupName of Object.keys(telegramGroups)) {
-			console.log(`Creating group ${groupName}`);
-			const { stdout, stderr } = await exec(`/home/vladimir/Public/projects/python/tg/bin/telegram-cli -W -e "create_group_chat ${groupName} @fans_in_tears_media_bot"`);
-			console.log(`Stdout: ${stdout}`);
-			console.log(`Stderr: ${stderr}`);
-			await sleep(6000); // min time is 3 seconds, although blocked after 48 group creations per day
+			// if this is future fixture and group should be created
+			if(telegramGroups[groupName] === '!') {
+				console.log(`Creating group ${groupName}`);
+				const { stdout, stderr } = await exec(`/home/vladimir/Public/projects/python/tg/bin/telegram-cli -W -e "create_group_chat ${groupName} @fans_in_tears_media_bot"`);
+				console.log(`Stdout: ${stdout}`);
+				console.log(`Stderr: ${stderr}`);
+				await sleep(6000); // min time is 3 seconds, although blocked after 48 group creations per day	
+			}
 		}
 		console.log('finished');
 		process.exit();
