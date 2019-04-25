@@ -15,7 +15,7 @@ main();
 async function main() {
 	try {
 		const fixtures = await Fixture.find();
-		const groupLink = require('../dumps/telegram_group_link_13042019.json');
+		const groupLink = require(`${__dirname}/../dumps/telegram_group_link_13042019.json`);
 		// set telegram chats for fixtures
 		for(let fixtureId of Object.keys(fixtures)) {
 			const fixture = fixtures[fixtureId];
