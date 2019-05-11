@@ -13,5 +13,5 @@ module.exports = {
 ```
 
 ## How to update calendar in DB
-- update json dumps for all leagues
+- update json dumps for all leagues (league ids: England - 2, France - 4, Germany - 8, Italy - 94, Russia - 135, Spain - 87)
 - run `node scripts/update-calendar.js`

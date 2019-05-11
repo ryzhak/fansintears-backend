@@ -5,7 +5,7 @@ const League = require('../db/models/league');
 /**
  * Variables to set
  */
-const dumpDate = '06032019';
+const dumpDate = '11052019';
 const countries = ['england', 'france', 'germany', 'italy', 'russia', 'spain'];
 
 // init DB
@@ -58,7 +58,6 @@ async function updateFixtures() {
 		// save fixtures to db
 		for(let fixtureId of Object.keys(fixtures)) {
 			let fixture = fixtures[fixtureId];
-			fixture.telegram_invite_link = 'https://t.me/joinchat/GdDWTRXLrxrAg9_sEpvS4g';
 			fixture.telegram_group_name = await getTelegramGroupName(fixtures[fixtureId]);
 			await Fixture.findOneAndUpdate({id: fixtureId}, fixture, {upsert: true}).catch(handleMongoError);
 		}
