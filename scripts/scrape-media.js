@@ -1,13 +1,35 @@
 const userInstagram = require('user-instagram');
-const scrapeTwitter = require('scrape-twitter');
 
-// let tweets = [];
-// new scrapeTwitter.TweetStream('from:TrollFootball', 'latest', {count: 1})
-// .on('data', (tweet) => { tweets.push(tweet); })
-// .on('end', () => {
-// 	console.log(tweets);	
-// })
-// .on('error', (err) => { reject(err); });
+const socialMediaConverter = require('../lib/socialMediaConverter');
+const twitter = require('../lib/twitter');
+
+/**
+ * Twitter accounts with memes
+ */
+const twitterMemeAccounts = [
+	'TrollFootball',
+	'FootyHumour',
+	'FootballMemesCo'
+];
+
+// run main function
+main();
+
+/**
+ * Main entrypoing function
+ */
+async function main() {
+	let mediaPosts = [];
+	// for all twitter accounts
+	for(let accountName of twitterMemeAccounts) {
+		// get latest posts
+		let tweets = await twitter.getPostsByAccount(accountName);
+		// convert posts to FansInTears format
+		tweets = tweets.map(tweet => socialMediaConverter.convertPost(tweet, 'twitter'));
+		mediaPosts.push(...tweets);
+	}
+	console.log(mediaPosts);
+}
 
 // userInstagram('https://www.instagram.com/footballmemesinsta')
 // .then(data => {
@@ -18,5 +40,3 @@ const scrapeTwitter = require('scrape-twitter');
 // 	// Error will trigger if the account link provided is false.
 //   	console.error(data);
 // });
-
-console.log('here');
