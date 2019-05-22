@@ -1,16 +1,7 @@
-const userInstagram = require('user-instagram');
-
+const mediaSources = require('../dumps/media_sources.json');
+const instagram = require('../lib/instagram');
 const socialMediaConverter = require('../lib/socialMediaConverter');
 const twitter = require('../lib/twitter');
-
-/**
- * Twitter accounts with memes
- */
-const twitterMemeAccounts = [
-	'TrollFootball',
-	'FootyHumour',
-	'FootballMemesCo'
-];
 
 // run main function
 main();
@@ -20,23 +11,16 @@ main();
  */
 async function main() {
 	let mediaPosts = [];
-	// for all twitter accounts
-	for(let accountName of twitterMemeAccounts) {
+	// for all accounts
+	for(let mediaSource of mediaSources.memes) {
 		// get latest posts
-		let tweets = await twitter.getPostsByAccount(accountName);
+		let posts = [];
+		if(mediaSource.source === 'twitter') posts = await twitter.getPostsByAccount(mediaSource.uri);
+		if(mediaSource.source === 'instagram') posts = await instagram.getPostsByAccount(mediaSource.uri);
 		// convert posts to FansInTears format
-		tweets = tweets.map(tweet => socialMediaConverter.convertPost(tweet, 'twitter'));
-		mediaPosts.push(...tweets);
+		posts = posts.map(post => socialMediaConverter.convertPost(post, mediaSource.source, mediaSource.uri));
+		mediaPosts.push(...posts);
 	}
 	console.log(mediaPosts);
+	console.log(mediaPosts.length);
 }
-
-// userInstagram('https://www.instagram.com/footballmemesinsta')
-// .then(data => {
-// 	console.log(data.posts.length);
-//   	console.log(`Full name is: ${data.fullName}`);
-// })
-// .catch(e => {
-// 	// Error will trigger if the account link provided is false.
-//   	console.error(data);
-// });

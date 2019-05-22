@@ -1,0 +1,12 @@
+{
+	"memes": [
+		{ "source": "twitter", "uri": "TrollFootball" },
+		{ "source": "twitter", "uri": "FootyHumour" },
+		{ "source": "twitter", "uri": "FootballMemesCo" },
+		{ "source": "instagram", "uri": "footballmemesinsta" },
+		{ "source": "instagram", "uri": "soccermemes" },
+		{ "source": "instagram", "uri": "footymemes.insta" },
+		{ "source": "instagram", "uri": "officialsoccermemes" },
+		{ "source": "instagram", "uri": "memesofootball" }
+	]
+}
