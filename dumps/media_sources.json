@@ -8,5 +8,32 @@
 		{ "source": "instagram", "uri": "footymemes.insta" },
 		{ "source": "instagram", "uri": "officialsoccermemes" },
 		{ "source": "instagram", "uri": "memesofootball" }
+	],
+	"players": [
+		{ "source": "instagram", "uri": "cristiano" },
+		{ "source": "instagram", "uri": "neymarjr" },
+		{ "source": "instagram", "uri": "leomessi" },
+		{ "source": "instagram", "uri": "davidbeckham" },
+		{ "source": "instagram", "uri": "jamesrodriguez10" },
+		{ "source": "instagram", "uri": "garethbale11" },
+		{ "source": "instagram", "uri": "iamzlatanibrahimovic" },
+		{ "source": "instagram", "uri": "ronaldinho" },
+		{ "source": "instagram", "uri": "luissuarez9" },
+		{ "source": "instagram", "uri": "marcelotwelve" },
+		{ "source": "instagram", "uri": "karimbenzema" },
+		{ "source": "instagram", "uri": "sergioramos" },
+		{ "source": "instagram", "uri": "andresiniesta8" },
+		{ "source": "instagram", "uri": "paulpogba" },
+		{ "source": "instagram", "uri": "davidluiz_4" },
+		{ "source": "instagram", "uri": "danialves" },
+		{ "source": "instagram", "uri": "zidane" },
+		{ "source": "instagram", "uri": "m10_official" },
+		{ "source": "instagram", "uri": "toni.kr8s" },
+		{ "source": "instagram", "uri": "3gerardpique" },
+		{ "source": "instagram", "uri": "antogriezmann" },
+		{ "source": "instagram", "uri": "paulodybala" },
+		{ "source": "instagram", "uri": "kaka" },
+		{ "source": "instagram", "uri": "ikercasillas" },
+		{ "source": "instagram", "uri": "waynerooney" }
 	]
 }
