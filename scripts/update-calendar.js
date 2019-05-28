@@ -73,6 +73,8 @@ async function updateLeagues() {
 	const leagues = dump.api.leagues;
 	// save leagues to db
 	for(let leagueId of Object.keys(leagues)) {
+		leagues[leagueId].telegram_group_name = `${leagues[leagueId].country} ${leagues[leagueId].name} FansInTears`;
+		leagues[leagueId].telegram_invite_link = null;
 		await League.findOneAndUpdate({id: leagueId}, leagues[leagueId], {upsert: true}).catch(handleMongoError);
 	}
 }
