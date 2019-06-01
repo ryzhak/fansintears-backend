@@ -5,6 +5,7 @@ const moment = require('moment');
 const config = require('../config');
 const db = require('../db/db');
 const Fixture = require('../db/models/fixture');
+const League = require('../db/models/league');
 const MediaContent = require('../db/models/media-content');
 
 db.init();
@@ -90,6 +91,54 @@ app.get('/fixtures', [
 	const to = req.query.to || moment().add(2, 'days').unix();
 	const fixtures = await Fixture.find({event_timestamp: {$gte: from, $lt: to}}).populate('league').catch(handleDbError(res));
 	res.send(fixtures);
+});
+
+/**
+ * @api {get} /leagues Get leagues
+ * @apiDescription Returns leagues. By default returns leagues which are not finished yet.
+ * @apiVersion 1.0.0
+ * @apiName GetLeagues
+ * @apiGroup League
+ * 
+ * @apiSuccessExample Success-Response:
+ * [
+ *  {
+ *       "_id": "5c81b165986149a3f58060e9",
+ *       "id": 289,
+ *       "__v": 0,
+ *       "country": "Australia",
+ *       "country_code": "AU",
+ *       "name": "National Premier Leagues",
+ *       "season": "2019",
+ *       "season_end": "2019-08-18",
+ *       "season_start": "2019-04-05",
+ *       "telegram_group_name": "Australia National Premier Leagues FansInTears",
+ *       "telegram_invite_link": "https://t.me/joinchat/GdDWTRDcP-XkV8--tdCTNg",
+ *       "logo": "https://www.api-football.com/public/leagues/289.png"
+ *	},
+ *	{
+ *       "_id": "5c81b165986149a3f5806157",
+ *       "id": 344,
+ *       "__v": 0,
+ *       "country": "Peru",
+ *       "country_code": "PE",
+ *       "name": "Primera Division",
+ *       "season": "2019",
+ *       "season_end": "2019-11-23",
+ *       "season_start": "2019-02-16",
+ *       "telegram_group_name": "Peru Primera Division FansInTears",
+ *       "telegram_invite_link": "https://t.me/joinchat/GdDWTRaNOaKZwnk17ghPCA",
+ *       "logo": ""
+ *	}
+ * ]
+ * 
+ * @apiErrorExample Error-Response:
+ * HTTP/1.1 500 Internal server error
+ */
+app.get('/leagues', async (req, res) => {
+	const today = moment().format('YYYY-MM-DD');
+	const leagues = await League.find({season_end: {$gte: today}}).sort('country').catch(handleDbError(res));
+	res.send(leagues);
 });
 
 /**
