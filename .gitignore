@@ -8,3 +8,7 @@ docs/*
 
 # npm packages
 node_modules
+
+# ignore uploaded memes
+public/memes/*
+!public/memes/.gitkeep

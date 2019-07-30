@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const { check, validationResult } = require('express-validator/check');
 const moment = require('moment');
 
@@ -11,6 +12,9 @@ const MediaContent = require('../db/models/media-content');
 db.init();
 
 const app = express();
+
+// enable file upload
+app.use(fileUpload());
 
 app.get('/', (req, res) => res.send('FansInTears backend works'));
 
@@ -245,6 +249,40 @@ app.get('/media/content', [
 	const mediaPosts = await MediaContent.find({group: req.query.group}).skip(config.ITEMS_PER_PAGE * page).limit(config.ITEMS_PER_PAGE).sort('-createdAt').catch(handleDbError(res));
 	await setPaginationHeaders(res, MediaContent, {group: req.query.group}, page);
 	res.send(mediaPosts);
+});
+
+/**
+ * @api {post} /memes Upload meme
+ * @apiDescription Uploads an image with a meme
+ * @apiVersion 1.0.0
+ * @apiName UploadMeme
+ * @apiGroup Memes
+ * 
+ * @apiParam {File} imageFile Image file with a meme. Available extensions: jpeg, png. Max file size: 5MB.
+ * 
+ * @apiSuccessExample Success-Response:
+ * HTTP/1.1 200 OK
+ * File uploaded
+ * 
+ * @apiErrorExample Error-Response:
+ * HTTP/1.1 400 Bad Request
+ * 
+ * @apiErrorExample Error-Response:
+ * HTTP/1.1 500 Internal server error
+ */
+app.post('/memes', async (req, res) => {
+	// validation
+	if (!req.files) return res.status(400).send('Image file is not found in the request');
+	if(!req.files.imageFile) return res.status(400).send('Invalid image param name. Use: imageFile');
+	if(req.files.imageFile.size > 5 * 1024 * 1024) return res.status(400).send('File too large. Max size: 5MB');
+	if(!['image/jpeg','image/png'].includes(req.files.imageFile.mimetype)) return res.status(400).send('Invalid image extension. Available: jpeg, png');
+	// upload file
+	const filePrefix = Math.trunc(new Date().getTime() / 1000) + '_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+	const filePath = `${__dirname}/../public/memes/${filePrefix}_${req.files.imageFile.name}`;
+	req.files.imageFile.mv(filePath, (err) => {
+		if (err) return res.status(500).send(err);
+		res.send('File uploaded');
+	});
 });
 
 app.listen(config.SERVER_PORT, () => console.log(`backend listening on port ${config.SERVER_PORT}`));

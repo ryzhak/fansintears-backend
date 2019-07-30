@@ -11,6 +11,9 @@ Backend for FansInTears app
 - [MediaContent](#mediacontent)
 	- [Get media content](#get-media-content)
 	
+- [Memes](#memes)
+	- [Upload meme](#upload-meme)
+	
 
 
 # Fixture
@@ -261,6 +264,41 @@ Error-Response:
 
 ```
 HTTP/1.1 422 Unprocessable entity
+```
+Error-Response:
+
+```
+HTTP/1.1 500 Internal server error
+```
+# Memes
+
+## Upload meme
+
+<p>Uploads an image with a meme</p>
+
+	POST /memes
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| imageFile			| File			|  <p>Image file with a meme. Available extensions: jpeg, png. Max file size: 5MB.</p>							|
+
+### Success Response
+
+Success-Response:
+
+```
+HTTP/1.1 200 OK
+File uploaded
+```
+### Error Response
+
+Error-Response:
+
+```
+HTTP/1.1 400 Bad Request
 ```
 Error-Response:
 
