@@ -5,7 +5,7 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-const telegramGroups = require('../dumps/telegram_league_group_link_29052019.json');
+const telegramGroups = require('../dumps/telegram_league_group_link_03082019.json');
 
 // run main function
 main();

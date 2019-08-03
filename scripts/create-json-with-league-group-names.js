@@ -3,6 +3,8 @@ const fs = require('fs');
 const db = require('../db/db');
 const League = require('../db/models/league');
 
+const leagueTimestamp = '03082019';
+
 // init DB
 db.init();
 
@@ -14,12 +16,17 @@ main();
  */
 async function main() {
 	try {
+		// load all leagues with telegram groups
+		const leagueTelegramGroups = require(`../dumps/telegram_league_group_link_${leagueTimestamp}.json`);
+		// load all leagues from DB
 		const leagues = await League.find();
-		let groupLink = {};
 		for(let league of leagues) {
-			groupLink[league.telegram_group_name] = '';
+			// if group exists then continue
+			if(leagueTelegramGroups[league.telegram_group_name]) continue;
+			// set add league with empty telegram group
+			leagueTelegramGroups[league.telegram_group_name] = '';
 		}
-		fs.writeFileSync(`${__dirname}/../dumps/telegram_league_group_link_29052019.json`, JSON.stringify(groupLink), 'utf-8');
+		fs.writeFileSync(`${__dirname}/../dumps/telegram_league_group_link_${leagueTimestamp}.json`, JSON.stringify(leagueTelegramGroups), 'utf-8');
 		console.log('finished');
 		process.exit();
 	} catch (err) {

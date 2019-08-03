@@ -5,7 +5,7 @@ const League = require('../db/models/league');
 /**
  * Variables to set
  */
-const dumpDate = '11052019';
+const dumpDate = '03082019';
 const countries = ['england', 'france', 'germany', 'italy', 'russia', 'spain'];
 
 // init DB
@@ -19,7 +19,8 @@ main();
  */
 async function main() {
 	await updateLeagues();
-	await updateFixtures();
+	// TODO: refactor: delete fixtures as they are unused
+	// await updateFixtures();
 	console.log("finished");
 	process.exit();
 }
@@ -73,8 +74,12 @@ async function updateLeagues() {
 	const leagues = dump.api.leagues;
 	// save leagues to db
 	for(let leagueId of Object.keys(leagues)) {
+		const mLeague = await League.findOne({id: leagueId}).catch(handleMongoError);
+		// if league exists then continue
+		if(mLeague) continue;
+		// create a new league
 		leagues[leagueId].telegram_group_name = `${leagues[leagueId].country} ${leagues[leagueId].name} FansInTears`;
-		leagues[leagueId].telegram_invite_link = null;
+		leagues[leagueId].telegram_invite_link = leagues[leagueId].telegram_invite_link || null;
 		await League.findOneAndUpdate({id: leagueId}, leagues[leagueId], {upsert: true}).catch(handleMongoError);
 	}
 }
