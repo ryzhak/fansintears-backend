@@ -15,7 +15,7 @@ main();
 async function main() {
 	try {
 		const leagues = await League.find();
-		const groupLink = require(`${__dirname}/../dumps/telegram_league_group_link_29052019.json`);
+		const groupLink = require(`${__dirname}/../dumps/telegram_league_group_link_03082019.json`);
 		// set telegram chats for leagues
 		for(let league of leagues) {
 			await League.findOneAndUpdate({id: league.id}, {telegram_invite_link: groupLink[league.telegram_group_name]}).catch((err) => { console.log(err); });

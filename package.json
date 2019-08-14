@@ -6,7 +6,8 @@
   "scripts": {
     "docs": "./node_modules/.bin/apidoc -i server -o docs && ./node_modules/.bin/apidoc-markdown -p docs -o docs/README.md",
     "live": "nodemon server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate:leagues": "node scripts/update-calendar.js && node scripts/set-telegram-chats-to-leagues.js"
   },
   "repository": {
     "type": "git",

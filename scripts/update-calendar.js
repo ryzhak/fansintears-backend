@@ -19,6 +19,7 @@ main();
  */
 async function main() {
 	await updateLeagues();
+	await fixLeagues();
 	// TODO: refactor: delete fixtures as they are unused
 	// await updateFixtures();
 	console.log("finished");
@@ -69,6 +70,8 @@ async function updateFixtures() {
  * Updates league table
  */
 async function updateLeagues() {
+	// delete all leagues
+	await League.collection.drop();
 	// read all leagues from json dump
 	const dump = require(`../dumps/leagues_${dumpDate}.json`);
 	const leagues = dump.api.leagues;
@@ -81,5 +84,22 @@ async function updateLeagues() {
 		leagues[leagueId].telegram_group_name = `${leagues[leagueId].country} ${leagues[leagueId].name} FansInTears`;
 		leagues[leagueId].telegram_invite_link = leagues[leagueId].telegram_invite_link || null;
 		await League.findOneAndUpdate({id: leagueId}, leagues[leagueId], {upsert: true}).catch(handleMongoError);
+	}
+}
+
+/**
+ * Fixes league issues
+ * 1) Removes symbol "'" in telegram group names
+ * 2) Removes svg and gif logos because mobile apps do not support then
+ */
+async function fixLeagues() {
+	const leagues = await League.find();
+	for(let league of leagues) {
+		// remove symbol "'"
+		await League.findOneAndUpdate({id: league.id}, {telegram_group_name: league.telegram_group_name.replace(/'/g, ' ')}, {upsert: true}).catch(handleMongoError);
+		// remove svg and gif logos
+		if(league.logo.toLowerCase().includes('svg') || league.logo.toLowerCase().includes('gif')) {
+			await League.findOneAndUpdate({id: league.id}, {logo: ""}, {upsert: true}).catch(handleMongoError);
+		}
 	}
 }
